@@ -19,20 +19,21 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-let count=0;
+
 
 io.on('connection',(socket)=>{
-    console.log("New Websocket connection")
+    console.log(chalk.yellowBright("New Websocket connection"))
 
-    socket.emit('countUpdated',count)
-
-    socket.on('increment',()=>
+    socket.on('message',(msg)=>
         {
-            count++;
-            // socket.emit('countUpdated',count);
-            io.emit("countUpdated", count);
+            io.emit('show_msg',msg);
         })
+    socket.broadcast.emit('show_msg','A new user has joined');
+    socket.on('disconnect',()=>{
+        io.emit('show_msg','A user has left!!')
+    });
 })
+
 
 server.listen(3000, () => {
   console.log(chalk.blueBright("Server is listening at port 3000..."));
