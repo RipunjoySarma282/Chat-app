@@ -1,12 +1,21 @@
 const socket=io()
 
 
-document.querySelector("#sub").addEventListener('click',(e)=>
+document.querySelector("#sub").addEventListener('submit',(e)=>
 {
     e.preventDefault();
-    const msg=document.querySelector('input').value;
-    socket.emit('message',msg);
+
+    const msg=e.target.elements.message.value
+    
+    socket.emit('message',msg,(error)=>{
+        if(error)
+            {
+                return console.log(error);
+            }
+        console.log('The message was delivered!');
+    });
 })
+
 
 document.querySelector("#send-location").addEventListener('click',()=>
 {
@@ -20,6 +29,13 @@ document.querySelector("#send-location").addEventListener('click',()=>
             socket.emit('sendLocation',{
                 lati:position.coords.latitude,
                 longi:position.coords.longitude
+            },(error)=>
+            {
+                if(error)
+                    {
+                        console.log(error);
+                    }
+                console.log('Location Shared');
             });
         })
 })
