@@ -1,13 +1,26 @@
 const socket=io()
 
+// Elements
+const $messageform=document.querySelector('#sub')
+const $messageformInput = document.querySelector("input");
+const $messageformButton = document.querySelector("button");
+const $locationButton=document.querySelector('#send-location');
 
-document.querySelector("#sub").addEventListener('submit',(e)=>
+
+$messageform.addEventListener('submit',(e)=>
 {
     e.preventDefault();
+
+    // Disable the button to prevent sending the same message again and again
+    $messageformButton.setAttribute('disabled','disabled')
 
     const msg=e.target.elements.message.value
     
     socket.emit('message',msg,(error)=>{
+        $messageformButton.removeAttribute('disabled')
+        $messageformInput.value=''
+        $messageformInput.focus();
+
         if(error)
             {
                 return console.log(error);
@@ -17,12 +30,14 @@ document.querySelector("#sub").addEventListener('submit',(e)=>
 })
 
 
-document.querySelector("#send-location").addEventListener('click',()=>
+$locationButton.addEventListener('click',()=>
 {
     if(!navigator.geolocation)
         {
             return alert('Geolocatiion is not supported by your browser');
         }
+        // Disable the button
+        $locationButton.setAttribute('disabled','disabled');
         navigator.geolocation.getCurrentPosition((position)=>
         {
             // console.log(position);
@@ -31,6 +46,7 @@ document.querySelector("#send-location").addEventListener('click',()=>
                 longi:position.coords.longitude
             },(error)=>
             {
+                $locationButton.removeAttribute('disabled')
                 if(error)
                     {
                         console.log(error);
