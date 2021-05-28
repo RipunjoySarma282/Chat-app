@@ -47,15 +47,48 @@ const removeUser=(id)=>
         }
 }
 
-addUser({
-    id:22,
-    username:'Rip',
-    room:'Nalbari'
-})
+// getUser -> Accept id and return user object (or undefined)
+const getUser=(id)=>
+    {
+        const user=users.find((user)=>user.id===id)
+        if(!user)
+            {
+                return{
+                    error:'undefined'
+                }
+            }
+        return {user};
+    }
 
-console.log(users)
+// 2nd method
+    // const getUser=(id)=>
+    // {
+    //     return users.find((user)=>user.id===id);
+    // }
 
-const removedUser=removeUser(22)
+// getUsersInRoom ->Accept room name and return an array of users (or empty array)
+const getUserInRoom=(roomname)=>
+{
+    const userinroom=[]
+    users.find((user)=>
+    {
+        if(user.room===roomname)
+            {
+                userinroom.push(user)
+            }
+    })
+    return userinroom
+} 
 
-console.log(removedUser)
-console.log(users)
+// 2nd Method
+    // const getUserInRoom=(room)=>
+    // {
+    //     return users.filter((user)=>user.room===room)
+    // }
+
+module.exports={
+    addUser,
+    removeUser,
+    getUser,
+    getUserInRoom
+}
