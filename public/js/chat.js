@@ -5,7 +5,30 @@ const $messageform=document.querySelector('#sub')
 const $messageformInput = document.querySelector("input");
 const $messageformButton = document.querySelector("button");
 const $locationButton=document.querySelector('#send-location');
+const $messages=document.querySelector('#messages');
 
+// Template
+const messageTemplate=document.querySelector('#message-template').innerHTML
+const locationMessageTemplate = document.querySelector("#Lecation-message-template").innerHTML;
+
+
+socket.on("show_msg", (message) => {
+  console.log(message);
+  const html=Mustache.render(messageTemplate,{
+      message:message.text,
+      createdAt:moment(message.createdAt).format('h:mm a')
+  });
+  $messages.insertAdjacentHTML('beforeend',html);
+});
+
+socket.on('LocationMessage',(url)=>
+{
+    console.log(url);
+    const html = Mustache.render(locationMessageTemplate, {
+      url
+    });
+    $messages.insertAdjacentHTML("beforeend", html);
+});
 
 $messageform.addEventListener('submit',(e)=>
 {
@@ -54,9 +77,4 @@ $locationButton.addEventListener('click',()=>
                 console.log('Location Shared');
             });
         })
-})
-
-socket.on('show_msg',(value)=>
-{
-    console.log(value);
 })
