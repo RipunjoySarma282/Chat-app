@@ -16,13 +16,15 @@ const io=socketio(server);
 const publicdire = path.join(__dirname, "../public");
 app.use("/public", express.static(publicdire));
 
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname,'../views/index.html'));
 });
 
-app.post("/",(req,res)=>
+
+app.get('/chat.html',(req,res)=>
 {
-    res.sendFile(path.join(__dirname,"../views/chat.html"));
+    res.sendFile(path.join(__dirname,('../views/chat.html')));
 })
 
 
@@ -30,8 +32,16 @@ io.on('connection',(socket)=>{
     
     console.log(chalk.yellowBright("New Websocket connection"))
 
-    socket.emit("show_msg", generateMessage('Welcome'));
-    socket.broadcast.emit("show_msg", generateMessage("A new user has joined"));
+    socket.on("join", ({ username, room }) => {
+      socket.join(room);
+      socket.emit("show_msg", generateMessage("Welcome"));
+      socket.broadcast.to(room).emit(
+        "show_msg",
+        generateMessage(`${username} has joined`)
+      );
+
+      // io.to.emit, socket.broadcast.to.emit
+    });
 
     socket.on('message',(msg,callback)=>
         {
@@ -47,10 +57,6 @@ io.on('connection',(socket)=>{
             callback()
         })    
 
-    socket.on('disconnect',()=>{
-        io.emit("show_msg", generateMessage("A user has left!!"));
-    });
-
 
     socket.on('sendLocation',(pos,callback)=>
         {
@@ -59,6 +65,11 @@ io.on('connection',(socket)=>{
             );
             callback();
         })
+    
+
+    socket.on("disconnect", () => {
+      io.emit("show_msg", generateMessage("A user has left!!"));
+    });    
 })
 
 
