@@ -20,6 +20,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname,'../views/index.html'));
 });
 
+app.post("/",(req,res)=>
+{
+    res.sendFile(path.join(__dirname,"../views/chat.html"));
+})
+
 
 io.on('connection',(socket)=>{
     
