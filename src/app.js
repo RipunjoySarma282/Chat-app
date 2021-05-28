@@ -4,7 +4,8 @@ const express = require("express");
 const chalk = require("chalk");
 const socketio=require('socket.io');
 const Filter=require('bad-words')
-const { generateMessage } = require("./utils/messages");
+const { generateMessage,generateLocationMessage } = require("./utils/messages");
+
 
 
 const app = express();
@@ -48,7 +49,9 @@ io.on('connection',(socket)=>{
 
     socket.on('sendLocation',(pos,callback)=>
         {
-            io.emit('LocationMessage',`https://google.com/maps?q=${pos.lati},${pos.longi}`);
+            io.emit(
+              "LocationMessage",generateLocationMessage(`https://google.com/maps?q=${pos.lati},${pos.longi}`)
+            );
             callback();
         })
 })
