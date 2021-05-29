@@ -43,10 +43,11 @@ io.on('connection',(socket)=>{
 
         socket.join(user.room);
         socket.emit("show_msg", generateMessage("Admin","Welcome"));
-        socket.broadcast.to(user.room).emit(
-            "show_msg",
-        generateMessage("Admin",`${user.username} has joined`)
-    );
+        socket.broadcast.to(user.room).emit("show_msg",generateMessage("Admin",`${user.username} has joined`));
+        io.to(user.room).emit('roomData',{
+            room:user.room,
+            users:getUserInRoom(user.room)
+        })
         callback();
 
       // io.to.emit, socket.broadcast.to.emit
@@ -84,6 +85,10 @@ io.on('connection',(socket)=>{
         if(user)
             {
                 io.to(user.room).emit("show_msg",generateMessage("Admin",`${user.username} has left!`));
+                io.to(user.room).emit('roomData',{
+                    room:user.room,
+                    users:getUserInRoom(user.room)
+                })
             }
     });    
 })

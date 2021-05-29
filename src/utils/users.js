@@ -67,24 +67,24 @@ const removeUser=(id)=>
     }
 
 // getUsersInRoom ->Accept room name and return an array of users (or empty array)
-const getUserInRoom=(roomname)=>
-{
-    const userinroom=[]
-    users.find((user)=>
-    {
-        if(user.room===roomname)
-            {
-                userinroom.push(user)
-            }
-    })
-    return userinroom
-} 
+// const getUserInRoom=(roomname)=>
+// {
+//     const userinroom=[]
+//     users.find((user)=>
+//     {
+//         if(user.room===roomname)
+//             {
+//                 userinroom.push(user)
+//             }
+//     })
+//     return userinroom
+// } 
 
 // 2nd Method
-    // const getUserInRoom=(room)=>
-    // {
-    //     return users.filter((user)=>user.room===room)
-    // }
+    const getUserInRoom=(room)=>
+        {
+            return users.filter((user)=>user.room===room)
+        }
 
 module.exports={
     addUser,
