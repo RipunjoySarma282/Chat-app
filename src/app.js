@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const socketio=require('socket.io');
 const Filter=require('bad-words')
 const { generateMessage,generateLocationMessage } = require("./utils/messages");
-const { addUser, removeUser } = require("./utils/users");
+const { addUser, removeUser,getUser,getUserInRoom } = require("./utils/users");
 
 
 
@@ -42,10 +42,10 @@ io.on('connection',(socket)=>{
             }
 
         socket.join(user.room);
-        socket.emit("show_msg", generateMessage("Welcome"));
+        socket.emit("show_msg", generateMessage("Admin","Welcome"));
         socket.broadcast.to(user.room).emit(
             "show_msg",
-        generateMessage(`${user.username} has joined`)
+        generateMessage("Admin",`${user.username} has joined`)
     );
         callback();
 
@@ -54,6 +54,7 @@ io.on('connection',(socket)=>{
 
     socket.on('message',(msg,callback)=>
         {
+            const user=getUser(socket.id);
             const filter=new Filter();
 
             if(filter.isProfane(msg))
@@ -61,7 +62,7 @@ io.on('connection',(socket)=>{
                     return callback('Profanity is not allowed!')
                 }
 
-            io.emit('show_msg',generateMessage(msg));
+            io.to(user.room).emit('show_msg',generateMessage(user.username,msg));
 
             callback()
         })    
@@ -69,8 +70,9 @@ io.on('connection',(socket)=>{
 
     socket.on('sendLocation',(pos,callback)=>
         {
-            io.emit(
-              "LocationMessage",generateLocationMessage(`https://google.com/maps?q=${pos.lati},${pos.longi}`)
+            const user = getUser(socket.id);
+            io.to(user.room).emit(
+              "LocationMessage",generateLocationMessage(user.username,`https://google.com/maps?q=${pos.lati},${pos.longi}`)
             );
             callback();
         })
@@ -81,7 +83,7 @@ io.on('connection',(socket)=>{
 
         if(user)
             {
-                io.to(user.room).emit("show_msg", generateMessage(`${user.username} has left!`));
+                io.to(user.room).emit("show_msg",generateMessage("Admin",`${user.username} has left!`));
             }
     });    
 })

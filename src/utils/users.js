@@ -48,23 +48,23 @@ const removeUser=(id)=>
 }
 
 // getUser -> Accept id and return user object (or undefined)
-const getUser=(id)=>
-    {
-        const user=users.find((user)=>user.id===id)
-        if(!user)
-            {
-                return{
-                    error:'undefined'
-                }
-            }
-        return {user};
-    }
+// const getUser=(id)=>
+//     {
+//         const user=users.find((user)=>user.id===id)
+//         if(!user)
+//             {
+//                 return{
+//                     error:'undefined'
+//                 }
+//             }
+//         return {user};
+//     }
 
 // 2nd method
-    // const getUser=(id)=>
-    // {
-    //     return users.find((user)=>user.id===id);
-    // }
+    const getUser=(id)=>
+    {
+        return users.find((user)=>user.id===id);
+    }
 
 // getUsersInRoom ->Accept room name and return an array of users (or empty array)
 const getUserInRoom=(roomname)=>
