@@ -1,0 +1,158 @@
+body{
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+
+    background: linear-gradient(270.14deg,#0D6682 5.17%,#1E2223 94.25%);
+}
+
+.centered-form__box{
+    position: absolute;
+    width: 804px;
+    height: 694px;
+    left: 317px;
+    top: 131px;
+    background: #7AF1F9;
+}
+
+.join
+{
+    position: absolute;
+    width: 383px;
+    height: 97px;
+    left: 320px;
+    top: 5px;
+
+    font-family: Monteserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 78px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: #000000;
+
+}
+
+.i1{
+    position: absolute;
+    width: 699px;
+    height: 63px;
+    left: 50px;
+    top: 252px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+
+    background: #C4C4C4;
+}
+
+.i2{
+    position: absolute;
+    width: 699px;
+    height: 63px;
+    left: 50px;
+    top: 453px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+
+    background: #C4C4C4;
+}
+
+button {
+    cursor: pointer;
+    position: absolute;
+    width: 281px;
+    height: 95px;
+    left: 272px;
+    top: 543px;
+
+    background: #3E5156;
+
+    transition: background .3s ease;
+}
+
+button:hover {
+    background: #3E5156;
+}
+
+button:disabled {
+    cursor: default;
+    background: #3E5156;
+}
+
+.bt
+{
+    all: initial;
+    position: static;
+    width: 127px;
+    height: 59px;
+    left: 100px;
+    top: 8px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 59px;
+    /* identical to box height */
+
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: #F8F3F3;
+
+}
+
+.na
+{
+    position: absolute;
+    width: 219px;
+    height: 49px;
+    left: 50px;
+    top: 182px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: #545252;
+}
+
+.ro
+{
+    position: absolute;
+    width: 219px;
+    height: 49px;
+    left: 50px;
+    top: 374px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: #545252;
+}
