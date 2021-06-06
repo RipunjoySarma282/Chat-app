@@ -3,7 +3,9 @@
         <head>
             <title>Chat App</title>
             <link rel="icon" href="../public/img/favicon.png">
-            <link rel="stylesheet" href="../public/css/styles.min.css">
+            <!-- <link rel="stylesheet" href="../public/css/styles.min.css"> -->
+            <link rel="stylesheet" href="../public/css/message.css">
+
         </head>
         <body>
             <div class="chat">
@@ -15,22 +17,22 @@
 
                     <div class="compose">
                         <form id="sub">
-                            <input type="text" name="message" placeholder="write a message" required autocomplete="off">
-                            <button>Submit</button>
+                            <input class="msg" type="text" name="message" placeholder="write a message" required autocomplete="off">
+                            <button class="sub"><span class="sub2">Submit</span></button>
                         </form>
                         
-                        <button id="send-location">Send Location</button>
+                        <button class="send" id="send-location"><span class="send2">Send Location</span></button>
                     </div>
                 </div>
             </div>
             
             <script id="message-template" type="text/html">
                 <div class="message">
-                    <p>
+                    <p class="meta_name">
                         <span class="message__name">{{username}}</span>
                         <span class="message__meta">{{createdAt}}</span>
                     </p>
-                    <p>{{ message }}</p>
+                    <p class="txt">{{ message }}</p>
                 </div>
             </script>
             
@@ -40,7 +42,7 @@
                         <span class="message__name">{{username}}</span>
                         <span class="message__meta">{{createdAt}}</span>
                     </p>
-                    <p><a href="{{url}}" target="_blank">My current location...</a></p>
+                    <p class="txt"><a href="{{url}}" target="_blank">My current location...</a></p>
                 </div>
             </script>
 
